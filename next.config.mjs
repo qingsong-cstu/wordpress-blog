@@ -1,4 +1,25 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const wordpressUrl = process.env.WORDPRESS_URL ?? 'http://localhost'
+const wordpressHostname = new URL(wordpressUrl).hostname
 
-export default nextConfig;
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: wordpressHostname,
+        pathname: '/wp-content/uploads/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'secure.gravatar.com',
+      },
+      {
+        protocol: 'http',
+        hostname: '*.gravatar.com',
+      },
+    ],
+  },
+}
+
+export default nextConfig
